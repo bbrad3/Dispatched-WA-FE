@@ -166,23 +166,23 @@ See User Stories section above
             - Ride Details
 
 ## Route Inventory
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| POST | /user | Signup/Create user |
-| GET | /user | Get all users |
-| POST | /user/login | Login/Authenticate user |
-| GET | /user/verify | Authenticate user |
-| PUT | /user/:userId | Update user |
-| DELETE | /user/:userId | Delete user |
-| --- | --- | --- |
-| GET | /location | Get all locations |
-| POST | /location | Create location |
-| PUT | /location/:locationId | Update location |
-| DELETE | /location:locationId | Delete location |
-| --- | --- | --- |
-| POST | /ride | Create ride |
-| PUT | /ride/:rideId | Update ride |
-| DELETE | /ride/:rideId | Delete ride |
-| --- | --- | --- |
-| GET | /shift | Get active employees |
-| --- | --- | --- |
+| Method | Endpoint | Description | Roles Authorized |
+| --- | --- | --- | --- |
+| POST | /user | Signup/Create user | Any |
+| GET | /user | Get all users | Admin |
+| POST | /user/login | Login/Authenticate user | Any |
+| GET | /user/verify | Authenticate user | Any |
+| PUT | /user/:userId | Update user | Admin |
+| DELETE | /user/:userId | Delete user | Admin |
+| --- | --- | --- | --- |
+| GET | /location | Get all locations | Dispatcher |
+| POST | /location | Create location | Admin/Dispatcher |
+| PUT | /location/:locationId | Update location | Admin/Dispatcher |
+| DELETE | /location:locationId | Delete location | Admin
+| --- | --- | --- | --- |
+| POST | /ride | Create ride | Dispatcher |
+| PUT | /ride/:rideId | Update ride | Driver/Dispatcher |
+| DELETE | /ride/:rideId | Delete ride | Dispatcher |
+| --- | --- | --- | --- |
+| GET | /shift | Get active employees | Dispatcher |
+| --- | --- | --- | --- |
