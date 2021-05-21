@@ -11,23 +11,23 @@ const GlobalProvider = ({children}) => {
 
     const fetchUser = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND}/users/verify`, {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND}/user/verify`, {
                 headers: {
                     Authorization: userId
                 }
             })
             console.log('fetchUser res', response)
-            // if (response.data.user) {
-            //     console.log('user verified', response.data.user);
-            //     setUser(response.data.user)
-            // }
+            if (response.status === 200) {
+                // console.log('user verified', response.data.user);
+                setUser(response.data.user)
+            }
         } catch (error) {
             console.error(error)
         }
     }
 
     const store = {
-        userState = [user, setUser],
+        userState: [user, setUser],
         fetchUser
     }
     return (
