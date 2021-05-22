@@ -50,11 +50,12 @@ See User Stories section above
         - [x] Profile
         - [x] Edit
         - [] Delete
-    - [] Location CRUD
-        - [] Create
-        - [] Edit
-        - [] Delete
-        - [] Read all
+    - [x] Location CRUD
+        - [x] Create
+        - [x] Edit
+        - [x] Delete
+        - [x] Read all
+        - [x] Read one
     - [] Dispatch Dashboard
         - [] Location lists
             - [] Seed locations
