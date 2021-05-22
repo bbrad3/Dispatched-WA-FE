@@ -27,7 +27,7 @@ function App() {
         <DispatchDashboard />
       </Route>
 
-      <Route exact path='/profile'>
+      <Route exact path='/profile/:userId'>
         <EmployeeProfile />
       </Route>
 

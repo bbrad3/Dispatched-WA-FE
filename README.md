@@ -45,12 +45,10 @@ See User Stories section above
 ## MVP
 - [] Web Application
     - [] Employee CRUD
-        - [] Signup
-        - [] Login
-            - [] Driver login
-            - [] Dispatcher login
-        - [] Profile
-        - [] Edit
+        - [x] Signup
+        - [x] Login
+        - [x] Profile
+        - [x] Edit
         - [] Delete
     - [] Location CRUD
         - [] Create
