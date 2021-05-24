@@ -1,13 +1,12 @@
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { useEffect, useContext } from 'react'
 
 import './App.css';
 import { GlobalContext } from './contexts/GlobalContext'
-import NavBar from './components/partials/NavBar'
+import NavBar from './components/NavBar'
 import Home from './views/Home'
-import DispatchDashboard from './views/DispatchDashboard'
 import EmployeeProfile from './views/EmployeeProfile'
-import LocationDashboard from './views/LocationDashboard'
+import Dashboards from './Dashboards'
 
 function App() {
   const { userState, fetchUser } = useContext(GlobalContext)
@@ -19,21 +18,19 @@ function App() {
     <div className="App">
       <NavBar />
 
-      <Route exact path='/'>
-        <Home />
-      </Route>
+      <Switch>
+        <Route exact path='/'>
+          <Home />
+        </Route>
 
-      <Route exact path='/dispatch'>
-        <DispatchDashboard />
-      </Route>
+        <Route exact path='/profile/:userId'>
+          <EmployeeProfile />
+        </Route>
 
-      <Route exact path='/profile/:userId'>
-        <EmployeeProfile />
-      </Route>
-
-      <Route exact path='/locations'>
-        <LocationDashboard />
-      </Route>
+        <Route path='/dashboards'>
+          <Dashboards />
+        </Route>
+      </Switch>
 
     </div>
   );

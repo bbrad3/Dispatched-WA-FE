@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 
-import './NavBar.css'
-import { useContext, useEffect, useState } from 'react'
+import './styles/NavBar.css'
+import { useContext, useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import { GlobalContext } from '../../contexts/GlobalContext'
+import { GlobalContext } from '../contexts/GlobalContext'
 
 function NavBar() {
     const { userState } = useContext(GlobalContext)
@@ -29,8 +29,8 @@ function NavBar() {
             }
             {user.dispatcher || user.admin && 
             <>
-                <Link className='navLink' to='/dispatch'>Dispatch</Link>
-                <Link className='navLink' to='/locations'>Locations</Link>
+                <Link className='navLink' to='/dashboards/dispatch'>Dispatch</Link>
+                <Link className='navLink' to='/dashboards/locations'>Locations</Link>
             </>
             }
         </div>

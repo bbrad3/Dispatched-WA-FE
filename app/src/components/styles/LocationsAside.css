@@ -8,6 +8,8 @@
     border-radius: 15px;
     width: 145px;
     min-height: 80vh;
+    max-height: 90vh;
+    overflow-y: scroll;
 }
 .locationBubble {
     background-color: rgb(243, 250, 255);

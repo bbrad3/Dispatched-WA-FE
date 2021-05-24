@@ -1,37 +1,35 @@
 import axios from 'axios'
-import { useState } from 'react'
 
 import './styles/LocationDashboard.css'
-import LocationsAside from '../partials/LocationsAside'
+import LocationsAside from '../components/LocationsAside'
 import LocationForm from '../components/LocationForm'
 
-function LocationDashboard() {
-    const [reload, setReload] = useState(false)
-    const [activeLocation, setActiveLocation] = useState(null) // this is only the locationId
+function LocationDashboard(props) {
 
     const handleDelete = async () => {
-        const response = await axios.delete(`${process.env.REACT_APP_BACKEND}/location/${activeLocation}`)
+        const response = await axios.delete(`${process.env.REACT_APP_BACKEND}/location/${props.activeLocation}`)
         console.log('delete location res', response);
         if (response.status === 200) {
-            setActiveLocation(null)
-            setReload(true)
+            props.setActiveLocation(null)
+            props.setReload(true)
         }
     }
 
     return (
         <div className='view locationDashboardView'>
             <LocationsAside
-                setActiveLocation={setActiveLocation}
-                reload={reload}
-                setReload={setReload}
+                setActiveLocation={props.setActiveLocation}
+                reload={props.reload}
+                setReload={props.setReload}
+                allLocations={props.allLocations}
             />
             <main className='locationDashboardMain'>
                 <LocationForm
-                    activeLocation={activeLocation}
-                    setActiveLocation={setActiveLocation}
-                    setReload={setReload}
+                    activeLocation={props.activeLocation}
+                    setActiveLocation={props.setActiveLocation}
+                    setReload={props.setReload}
                 />
-                {activeLocation &&
+                {props.activeLocation &&
                     <button className='deleteBtn' onClick={handleDelete}>Delete Location</button>
                 }
             </main>
