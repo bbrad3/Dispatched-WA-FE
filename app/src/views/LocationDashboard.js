@@ -1,9 +1,9 @@
 import axios from 'axios'
+import { useEffect, useContext, useState, useCallback } from 'react'
 
 import './styles/LocationDashboard.css'
 import LocationsAside from '../components/LocationsAside'
 import LocationForm from '../components/LocationForm'
-import { useEffect } from 'react'
 
 function LocationDashboard(props) {
 
@@ -16,7 +16,10 @@ function LocationDashboard(props) {
         }
     }
 
-    useEffect(()=> {props.setDashboard('location')}, [])
+    useEffect(()=> {
+        props.setDashboard('location')
+    }, [])
+    
 
     return (
         <div className='view locationDashboardView'>

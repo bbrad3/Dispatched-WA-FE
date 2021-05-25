@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'
 import { GlobalProvider } from './contexts/GlobalContext'
+import { SocketProvider } from './contexts/SocketContext'
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
-      <GlobalProvider>
-        <App />
-      </GlobalProvider>
+      <SocketProvider>
+        <GlobalProvider>
+          <App />
+        </GlobalProvider>
+      </SocketProvider>
     </React.StrictMode>
   </BrowserRouter>,
   document.getElementById('root')
