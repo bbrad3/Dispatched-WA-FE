@@ -60,7 +60,7 @@ function LocationForm(props) {
 
     const fetchActiveLocation = async () => {
         if (props.activeLocation) {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND}/location/${props.activeLocation}`)
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND}/location/${props.activeLocation.id}`)
             console.log('fetchActiveLocation', response);
             setEdit(response.data.location)
             presetForm(response.data.location)

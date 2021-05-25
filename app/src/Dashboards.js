@@ -13,7 +13,8 @@ function Dashboards() {
     const [user, setUser] = userState
 
     const [reload, setReload] = useState(false)
-    const [activeLocation, setActiveLocation] = useState(null) // this is only the locationId
+    const [activeLocation, setActiveLocation] = useState({})
+    const [dashboard, setDashboard] = useState(null)
 
     const [allLocations, setAllLocations] = useState({
         properties: [],
@@ -68,6 +69,8 @@ function Dashboards() {
                         setActiveLocation={setActiveLocation}
                         allLocations={allLocations}
                         fetchLocations={fetchLocations}
+                        dashboard={dashboard}
+                        setDashboard={setDashboard}
                     />
                 </Route>
                 <Route exact path={`${match.path}/locations`}>
@@ -77,6 +80,8 @@ function Dashboards() {
                         activeLocation={activeLocation}
                         setActiveLocation={setActiveLocation}
                         allLocations={allLocations}
+                        dashboard={dashboard}
+                        setDashboard={setDashboard}
                     />
                 </Route>
             </Switch>

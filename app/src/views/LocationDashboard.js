@@ -3,6 +3,7 @@ import axios from 'axios'
 import './styles/LocationDashboard.css'
 import LocationsAside from '../components/LocationsAside'
 import LocationForm from '../components/LocationForm'
+import { useEffect } from 'react'
 
 function LocationDashboard(props) {
 
@@ -15,6 +16,8 @@ function LocationDashboard(props) {
         }
     }
 
+    useEffect(()=> {props.setDashboard('location')}, [])
+
     return (
         <div className='view locationDashboardView'>
             <LocationsAside
@@ -22,6 +25,7 @@ function LocationDashboard(props) {
                 reload={props.reload}
                 setReload={props.setReload}
                 allLocations={props.allLocations}
+                dashboard={props.dashboard}
             />
             <main className='locationDashboardMain'>
                 <LocationForm

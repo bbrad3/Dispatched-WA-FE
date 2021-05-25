@@ -3,6 +3,7 @@ import { useState } from 'react'
 import './styles/DispatchDashboard.css'
 import LocationsAside from '../components/LocationsAside'
 import RideForm from '../components/RideForm'
+import RidesAside from '../components/RidesAside'
 
 function DispatchDashboard(props) {
     const [focusedInput, setFocusedInput] = useState('')
@@ -33,6 +34,7 @@ function DispatchDashboard(props) {
                     setFocusedInput={setFocusedInput}
                 />
             </div>
+            <RidesAside />
         </div>
     )
 }

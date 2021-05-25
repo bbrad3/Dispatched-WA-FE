@@ -13,7 +13,10 @@ function LocationsAside(props) {
             console.log(e.target.childNodes);
             props.setInputs({...props.inputs, [props.focusedInput]: e.target.childNodes[0].innerHTML})
         }
-        // props.setActiveLocation(location)
+        if (props.dashboard === 'location') {
+            console.log('here');
+            props.setActiveLocation(location)
+        }
     }
 
     return (
