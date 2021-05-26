@@ -1,25 +1,28 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './styles/RideForm.css'
 
-function RideForm(props) {
+function RideForm({
+    inputs, setInputs, setFocusedInput, setResetRides
+}) {
 
     const handleInputs = (e) => {
         const name = e.target.name
         const value = e.target.value
-        props.setInputs({...props.inputs, [name]: value})
+        setInputs({...inputs, [name]: value})
     }
 
     const handleLocationSelect = (e) => {
-        props.setFocusedInput(e.target.name)
+        setFocusedInput(e.target.name)
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const response = await axios.post(`${process.env.REACT_APP_BACKEND}/ride`, props.inputs)
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND}/ride`, inputs)
         console.log('new ride response', response);
-        props.setInputs({})
+        setInputs({}) // why won't it reset the form!
+        setResetRides(true)
     }
 
     return (
@@ -29,7 +32,7 @@ function RideForm(props) {
                 <input
                     type='text'
                     name='pickup'
-                    value={props.inputs.pickup}
+                    value={inputs.pickup}
                     onFocus={handleLocationSelect}
                     onChange={handleInputs}
                 />
@@ -37,7 +40,7 @@ function RideForm(props) {
                 <input
                     type='text'
                     name='dropoff'
-                    value={props.inputs.dropoff}
+                    value={inputs.dropoff}
                     onFocus={handleLocationSelect}
                     onChange={handleInputs}
                 />
@@ -46,7 +49,7 @@ function RideForm(props) {
                 <label htmlFor='passengers'>Passengers:</label>
                 <select
                     name='passengers'
-                    value={props.inputs.passengers}
+                    value={inputs.passengers}
                     onChange={handleInputs}
                 >
                     <option value={0}>--select--</option>
@@ -66,7 +69,7 @@ function RideForm(props) {
                 <input
                     type='text'
                     name='callerName'
-                    value={props.inputs.callerName}
+                    value={inputs.callerName}
                     onChange={handleInputs}
                 />
 
@@ -74,7 +77,7 @@ function RideForm(props) {
                 <input
                     type='text'
                     name='room'
-                    value={props.inputs.room}
+                    value={inputs.room}
                     onChange={handleInputs}
                 />
             </span>

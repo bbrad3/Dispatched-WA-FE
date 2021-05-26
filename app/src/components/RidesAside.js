@@ -1,18 +1,7 @@
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-
 import './styles/RidesAside.css'
 import RideDetails from './RideDetails'
 
-function RidesAside() {
-    const [rides, setRides] = useState([])
-
-    const fetchRides = async () => {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND}/ride/`)
-        console.log('fetchRides res', response);
-        setRides(response.data.rides)
-    }
-    useEffect(fetchRides, [])
+function RidesAside({active, rides, setResetRides}) {
 
     return (
         <aside className='ridesAside'>
@@ -20,7 +9,12 @@ function RidesAside() {
                 <h3>Pending Rides</h3>
                 {rides.length > 0 &&
                     rides.map(ride => (
-                        ride.status === 'pending' && <RideDetails ride={ride} />
+                        ride.status === 'pending' && <RideDetails
+                            setResetRides={setResetRides}
+                            key={ride.id}
+                            ride={ride}
+                            active={active}
+                        />
                     ))
                 }
             </section>
@@ -28,7 +22,11 @@ function RidesAside() {
                 <h3>Completed Rides</h3>
                 {rides.length > 0 &&
                     rides.map(ride => (
-                        ride.status === 'complete' && <RideDetails ride={ride} />
+                        ride.status === 'complete' && <RideDetails
+                            setResetRides={setResetRides}
+                            key={ride.id}
+                            ride={ride}
+                        />
                     ))
                 }
             </section>

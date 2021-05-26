@@ -1,0 +1,17 @@
+.driverCard {
+    border-radius: 15px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+    margin: 10px auto;
+    width: 48%;
+}
+.cardHeader {
+    background-color: rgb(240, 240, 240);
+    border-radius: 15px 15px 0 0;
+    border-bottom: 1px solid rgb(200, 200, 200);
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 5px;
+}
+.cardBody {
+    margin-bottom: 5px;
+}
