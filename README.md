@@ -57,20 +57,33 @@ See User Stories section above
         - [x] Read all
         - [x] Read one
     - [] Dispatch Dashboard
-        - [] Location lists
-            - [] Seed locations
-            - [] Properties
-            - [] Destinations
+        - [x] Location lists
+            - [x] Seed locations
+            - [x] Properties
+            - [x] Destinations
         - [] Rides
-            - [] Create
+            - [x] Create
             - [] Edit
-            - [] Ride Details
-        - [] Active Drivers Dashboard
-            - [] Driver Card
+            - [x] Ride Details
+        - [x] Active Drivers Dashboard
+            - [x] Driver Card
         - [] Ride Summary Aside
-            - [] Pending Rides List
+            - [x] Pending Rides List
             - [] Completed Rides List
 
+- [] Driver View
+    - [] Assigned Rides
+    - [] Accepted Rides
+    - [] Update Ride Status
+    - [] Completed Rides
+- [] Administrator Dashboard
+
+- [] Driver-Dispatcher Connection
+    - [] Logged in driver is displayed on Dispatch Dashboard
+    - [] Rides are sent to driver and displayed
+    - [] Ride status can be changed by driver and displayed in the Dispatch Dashboard
+
+## Stretch Goals
 - [] Mobile Application
     - [] Driver login
     - [] Working View
@@ -79,14 +92,6 @@ See User Stories section above
         - [] Accepted Rides
         - [] Pending Rides
         - [] Completed rides
-
-- [] Driver-Dispatcher Connection
-    - [] Logged in driver is displayed on Dispatch Dashboard
-    - [] Rides are sent to driver and displayed
-    - [] Ride status can be changed by driver and displayed in the Dispatch Dashboard
-
-## Stretch Goals
-- [] Administrator Dashboard
 - [] Employee Profile View
     - [] Schedule
     - [] Request Time-off
