@@ -6,9 +6,7 @@ const GlobalContext = createContext()
 const GlobalProvider = ({children}) => {
     // current shift?
     const userId = localStorage.getItem('userId')
-
     const [user, setUser] = useState({})
-
     const fetchUser = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_BACKEND}/user/verify`, {
@@ -26,9 +24,24 @@ const GlobalProvider = ({children}) => {
         }
     }
 
+    const [driverActive, setDriverActive] = useState({})
+    const fetchShift = async () => {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND}/shift/started`, {
+            headers: {
+                Authorization: userId
+            }
+        })
+        console.log('fetchShift res', response);
+        if (!driverActive.id) {
+            setDriverActive(response.data.shift)
+        }
+    }
+
     const store = {
         userState: [user, setUser],
-        fetchUser
+        fetchUser,
+        driverState: [driverActive, setDriverActive],
+        fetchShift
     }
     return (
         <GlobalContext.Provider value={store}>

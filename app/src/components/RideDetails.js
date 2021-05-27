@@ -3,18 +3,30 @@ import { useState } from 'react'
 
 import './styles/RideDetails.css'
 
-function RideDetails({ride, setResetRides, active}) {
+function RideDetails({ride, resetRides, setResetRides, activeDrivers, socket}) {
     const [driver, setDriver] = useState('')
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // send put to update ride assignment(shiftId)
-        const response = await axios.put(`${process.env.REACT_APP_BACKEND}/ride/${ride.id}`, {
+        socket.emit('assign_ride', {
+            rideId: ride.id,
             shiftId: driver
         })
-        console.log('assign driver res', response);
-        // reload RidesAside component
-        setResetRides(true)
+        setResetRides(!resetRides)
+    }
+
+    const handleRolling = () => {
+        console.log('...rolling');
+        socket.emit('rolling', {rideId: ride.id})
+        setResetRides(!resetRides)
+    }
+
+    const handleComplete = () => {
+        console.log('...clear');
+        if (ride.status === 'rolling') {
+            socket.emit('ride_complete', {rideId: ride.id})
+            setResetRides(!resetRides)
+        }
     }
 
     return (
@@ -25,14 +37,17 @@ function RideDetails({ride, setResetRides, active}) {
                     <form className='assignRideForm' onSubmit={handleSubmit}>
                         <select value={driver} onChange={(e)=>{setDriver(e.target.value)}}> 
                             <option>--select--</option>
-                            {active.map(shift => (
+                            {activeDrivers.map(shift => (
                                 <option key={shift.id} value={shift.id}>{shift.user.firstName}</option>
                             ))}
                         </select>
                         <input type='submit' value='Go' />
                     </form>
                 }
-                <div className='bubble pickup'>
+                <div
+                    className={ride.status === 'rolling' ? 'bubble rolling' : ride.status === 'complete' ? 'bubble complete' : 'bubble pickup'}
+                    onClick={handleRolling}
+                >
                     {ride.pickupLocation ?
                         ride.pickupLocation.name
                         :
@@ -40,7 +55,10 @@ function RideDetails({ride, setResetRides, active}) {
                     }
                 </div>
                 <span>to</span>
-                <div className='bubble dropoff'>
+                <div
+                    className={ride.status === 'complete' ? 'bubble complete' : 'bubble dropoff'}
+                    onClick={handleComplete}
+                >
                     {ride.dropoffLocation ?
                         ride.dropoffLocation.name
                         :

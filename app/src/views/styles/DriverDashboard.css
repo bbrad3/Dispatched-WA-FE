@@ -1,0 +1,22 @@
+.driverDashboard {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.driverDashboard section {
+    border-radius: 10px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+.shiftDetails {
+    background-color: rgb(200, 200, 200);
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.rideContainer {
+    margin-bottom: 5px;
+}

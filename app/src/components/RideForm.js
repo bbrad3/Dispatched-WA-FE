@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import './styles/RideForm.css'
 
 function RideForm({
-    inputs, setInputs, setFocusedInput, setResetRides
+    inputs, setInputs, setFocusedInput, resetRides, setResetRides
 }) {
 
     const handleInputs = (e) => {
@@ -22,7 +22,7 @@ function RideForm({
         const response = await axios.post(`${process.env.REACT_APP_BACKEND}/ride`, inputs)
         console.log('new ride response', response);
         setInputs({}) // why won't it reset the form!
-        setResetRides(true)
+        setResetRides(!resetRides)
     }
 
     return (

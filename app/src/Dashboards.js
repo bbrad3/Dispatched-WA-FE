@@ -5,6 +5,7 @@ import { useContext, useState, useEffect } from 'react'
 import { GlobalContext } from './contexts/GlobalContext'
 import DispatchDashboard from './views/DispatchDashboard'
 import LocationDashboard from './views/LocationDashboard'
+import DriverDashboard from './views/DriverDashboard'
 
 function Dashboards() {
     const match = useRouteMatch()
@@ -13,7 +14,10 @@ function Dashboards() {
     const [user, setUser] = userState
 
     const [reload, setReload] = useState(false)
+    const [resetRides, setResetRides] = useState(false)
+    const [resetDrivers, setResetDrivers] = useState(false)
     const [activeLocation, setActiveLocation] = useState({})
+    const [activeDrivers, setActiveDrivers] = useState([])
     const [dashboard, setDashboard] = useState(null)
 
     const [allLocations, setAllLocations] = useState({
@@ -65,12 +69,13 @@ function Dashboards() {
                     <DispatchDashboard
                         reload={reload}
                         setReload={setReload}
-                        activeLocation={activeLocation}
-                        setActiveLocation={setActiveLocation}
+                        activeDrivers={activeDrivers}
+                        setActiveDrivers={setActiveDrivers}
                         allLocations={allLocations}
-                        fetchLocations={fetchLocations}
-                        dashboard={dashboard}
-                        setDashboard={setDashboard}
+                        resetRides={resetRides}
+                        setResetRides={setResetRides}
+                        resetDrivers={resetDrivers}
+                        setResetDrivers={setResetDrivers}
                     />
                 </Route>
                 <Route exact path={`${match.path}/locations`}>
@@ -82,6 +87,15 @@ function Dashboards() {
                         allLocations={allLocations}
                         dashboard={dashboard}
                         setDashboard={setDashboard}
+                        />
+                </Route>
+                <Route exact path={`${match.path}/drive`}>
+                    <DriverDashboard
+                        user={user}
+                        resetRides={resetRides}
+                        setResetRides={setResetRides}
+                        resetDrivers={resetDrivers}
+                        setResetDrivers={setResetDrivers}
                     />
                 </Route>
             </Switch>

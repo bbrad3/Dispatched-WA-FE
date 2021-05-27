@@ -27,11 +27,16 @@ function NavBar() {
             :
                 <Link className='navLink' to='/'>Start</Link>
             }
-            {user.dispatcher || user.admin && 
-            <>
-                <Link className='navLink' to='/dashboards/dispatch'>Dispatch</Link>
-                <Link className='navLink' to='/dashboards/locations'>Locations</Link>
-            </>
+            {user.dispatcher || user.admin ? 
+                <>
+                    <Link className='navLink' to='/dashboards/dispatch'>Dispatch</Link>
+                    <Link className='navLink' to='/dashboards/locations'>Locations</Link>
+                </>
+                : null
+            }
+            {user.driver || user.admin ?
+                <Link className='navLink' to='/dashboards/drive'>Drive</Link>
+                : null
             }
         </div>
     )

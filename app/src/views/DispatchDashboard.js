@@ -8,18 +8,12 @@ import DriverCard from '../components/DriverCard'
 import { SocketContext } from '../contexts/SocketContext'
 import axios from 'axios'
 
-function DispatchDashboard(props) {
+function DispatchDashboard({
+    reload, setReload, activeDrivers, setActiveDrivers, allLocations, resetDrivers, setResetDrivers, resetRides, setResetRides
+}) {
     const socket = useContext(SocketContext)
-    const [joined, setJoined] = useState(false)
-
-    const handleConnectionAccepted = useCallback(() => {
-        setJoined(true)
-        console.log('joined', joined);
-    }, [])
 
     const [rides, setRides] = useState([])
-    const [resetRides, setResetRides] = useState(false)
-    const [active, setActive] = useState([])
     const [focusedInput, setFocusedInput] = useState('')
     const [inputs, setInputs] = useState({
         pickup: '',
@@ -28,53 +22,71 @@ function DispatchDashboard(props) {
         callerName: '',
         room: ''
     })
+    
+    socket.on('ride_updated', (data) => { // repopulate rides when a ride status changes
+        console.log('ride updated event in dispatch dash', data)
+        setResetRides(!resetRides)
+    })
+
+    socket.on('shift_started', () => {
+        setResetDrivers(!resetDrivers)
+    })
+    socket.on('shift_ended', () => {
+        setResetDrivers(!resetDrivers)
+    })
 
     const fetchRides = async () => {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND}/ride/`)
+        console.log('fetching rides for dispatcher...')
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND}/ride`)
         console.log('fetchRides res', response);
         setRides(response.data.rides)
-        setResetRides(false)
+        // setResetRides(false)
     }
+    useEffect(fetchRides, [])
     useEffect(fetchRides, [resetRides])
 
-    const fetchActive = async () => {
+    const fetchActiveDrivers = async () => {
+        console.log('fetching active drivers for dispatch...');
         const response = await axios.get(`${process.env.REACT_APP_BACKEND}/shift`)
         console.log('fetchActive', response);
-        setActive(response.data.shifts)
+        setActiveDrivers(response.data.shifts)
+        // setResetDrivers(false)
     }
-    useEffect(fetchActive, [])
+    useEffect(fetchActiveDrivers, [])
+    useEffect(fetchActiveDrivers, [resetDrivers])
 
     useEffect(() => {
         socket.on('connect', () => {
             console.log('socketId', socket.id, socket.connected);
-            handleConnectionAccepted()
         })
 
         return () => {
-            socket.off('connection', handleConnectionAccepted)
+            socket.off('connection')
         }
-    }, [socket, handleConnectionAccepted])
+    }, [socket])
 
     return (
         <div className='view dispatchDashboardView'>
             <LocationsAside
-                reload={props.reload}
-                setReload={props.setReload}
-                allLocations={props.allLocations}
+                reload={reload}
+                setReload={setReload}
+                allLocations={allLocations}
                 focusedInput={focusedInput}
                 inputs={inputs}
                 setInputs={setInputs}
             />
             <div className='dispatchMain'>
                 <RideForm
+                    socket={socket}
                     inputs={inputs}
                     setInputs={setInputs}
                     setFocusedInput={setFocusedInput}
+                    resetRides={resetRides}
                     setResetRides={setResetRides}
                 />
                 <div className='driversContainer'>
-                    {active.length > 0 &&
-                        active.map(driver => (
+                    {activeDrivers.length > 0 &&
+                        activeDrivers.map(driver => (
                             <DriverCard
                                 key={driver.id}
                                 rides={rides}
@@ -85,9 +97,11 @@ function DispatchDashboard(props) {
                 </div>
             </div>
             <RidesAside
+                socket={socket}
                 rides={rides}
+                resetRides={resetRides}
                 setResetRides={setResetRides}
-                active={active}
+                activeDrivers={activeDrivers}
             />
         </div>
     )

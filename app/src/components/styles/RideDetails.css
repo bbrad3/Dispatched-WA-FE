@@ -17,6 +17,7 @@
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
     margin: 5px;
     padding: 5px;
+    cursor: pointer;
 }
 .pickup {
     background-color: rgb(118, 164, 254);
@@ -26,4 +27,10 @@
 }
 .rideInfo p {
     margin: 5px;
+}
+.rolling {
+    background-color: rgb(40, 220, 40);
+}
+.complete {
+    background-color: rgb(220, 40, 40);
 }

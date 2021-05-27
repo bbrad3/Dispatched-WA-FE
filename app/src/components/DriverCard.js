@@ -11,11 +11,11 @@ function DriverCard({driver, rides}) {
                 <p>Seats: <strong>{driver.shuttle.capacity}</strong></p>
             </span>
             <span className='cardBody'>
-                {rides.map(ride => (
-                    ride.shiftId === driver.id && <RideDetails
+                {rides && rides.map(ride => (
+                    ride.shiftId === driver.id && ride.status !== 'complete' ? <RideDetails
                         key={ride.id}
                         ride={ride}
-                    />
+                    /> : null
                 ))}
             </span>
         </div>

@@ -9,10 +9,11 @@ import EmployeeProfile from './views/EmployeeProfile'
 import Dashboards from './Dashboards'
 
 function App() {
-  const { userState, fetchUser } = useContext(GlobalContext)
+  const { userState, fetchUser, driverActive, fetchShift } = useContext(GlobalContext)
   const [user, setUser] = userState
 
   useEffect(fetchUser, [])
+  useEffect(fetchShift, [user, driverActive])
 
   return (
     <div className="App">
