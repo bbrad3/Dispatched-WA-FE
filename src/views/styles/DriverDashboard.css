@@ -1,6 +1,7 @@
 .driverDashboard {
     display: flex;
     flex-direction: column;
+    align-items: center;
     min-width: 200px;
     max-width: 400px;
     margin: 20px auto;
@@ -18,5 +19,23 @@
 }
 
 .rideContainer {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    min-height: 100px;
+    max-height: 250px;
+    overflow-y: scroll;
+}
+.startShiftForm label {
+    margin: 5px 5px 5px 10px;
+}
+.startShiftForm select, input {
+    max-width: 50px; 
+}
+.startShiftForm input[type=submit] {
+    min-width: 100px;
+    margin: 5px 10px;
+}
+
+.endShiftBtn {
+    background-color: rgb(220, 40, 40);
+    padding: 3px 8px;
 }

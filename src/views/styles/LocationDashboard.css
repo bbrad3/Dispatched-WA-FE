@@ -1,16 +1,16 @@
  .locationDashboardView {
      display: flex;
      justify-content: space-between;
-     width: 80%;
-     margin: 0 auto;
-     margin-top: 20px;
+     /* width: 80%; */
+     /* margin: 0 auto; */
+     /* margin-top: 20px; */
  }
 
  .locationDashboardMain {
      display: flex;
      flex-direction: column;
      align-items: center;
-     min-width: 50vw;
+     min-width: 70vw;
  }
  .deleteBtn {
     background-color: rgb(240, 0, 0);
