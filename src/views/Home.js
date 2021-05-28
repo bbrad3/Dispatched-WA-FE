@@ -13,7 +13,7 @@ function Home() {
 
     return (
         <div className='view homeView'>
-            {redirect && <Redirect to='/profile' />}
+            {redirect && <Redirect to={`/profile/${redirect}`} />}
             <LoginForm setRedirect={setRedirect} setUser={setUser} />
             <SignupForm setRedirect={setRedirect} setUser={setUser} />
         </div>

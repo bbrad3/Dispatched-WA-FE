@@ -21,7 +21,7 @@ function LoginForm(props) {
         const user = response.data.user
         localStorage.setItem('userId', user.id)
         props.setUser(user)
-        props.setRedirect(true)
+        props.setRedirect(user.id)
     }
 
     return (

@@ -13,7 +13,7 @@ function DriverDashboard({user, resetRides, setResetRides, resetDrivers, setRese
 
     const [rides, setRides] = useState([])
     const [shuttles, setShuttles] = useState([])
-    const [inputs, setInputs] = useState({})
+    const [inputs, setInputs] = useState({foo: null})
 
     const handleInputs = (e) => {
         const name = e.target.name
@@ -23,62 +23,16 @@ function DriverDashboard({user, resetRides, setResetRides, resetDrivers, setRese
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // socket.emit('start_shift', {
-        //     userId: user.id,
-        //     shuttleNumber: inputs.shuttle,
-        //     radio: inputs.radio
-        // })
-        // socket.on('shift_started', (data) => {
-        //     console.log('shift started res', data);
-        //     setDriverActive({
-        //         ...data.shift,
-        //         user: data.user,
-        //         shuttle: data.shuttle
-        //     })
-        //     setActiveDrivers([
-        //         ...activeDrivers,
-        //         {
-        //             ...data.shift,
-        //             user: data.user,
-        //             shuttle: data.shuttle
-        //         }
-        //     ])
-        // })
-        // return () => socket.off('shift started')
-        const response = await axios.post(`${process.env.REACT_APP_BACKEND}/shift`, {}, {
-            headers: {
-                Authorization: user.id,
-                shuttleNumber: inputs.shuttle,
-                radio: inputs.radio
-            }
+        socket.emit('start_shift', {
+            userId: user.id,
+            shuttleNumber: inputs.shuttle,
+            radio: inputs.radio
         })
-        console.log('start shift res', response);
-        if (response.status === 200) {
-            setDriverActive({
-                ...response.data.shift,
-                user: response.data.user,
-                shuttle: response.data.shuttle
-            })
-            setResetDrivers(!resetDrivers)
-        }
     }
 
     const handleEndShift = async () => {
         socket.emit('end_shift', driverActive)
-        socket.on('shift_ended', ({shift}) => {
-            console.log('shift ended res', shift);
-            setDriverActive({})
-            setResetDrivers(!resetDrivers)
-        })
-        return () => socket.off('shift_ended')
-        // const response = await axios.put(`${process.env.REACT_APP_BACKEND}/shift/end`, driverActive)
-        // console.log('endShift res', response);
-        // if (response.data.shift.shiftEnd) {
-        //     setDriverActive({})
-        // }
     }
-
-    
 
     const fetchShuttles = async () => {
         const response = await axios.get(`${process.env.REACT_APP_BACKEND}/shift/shuttles`)
@@ -88,29 +42,46 @@ function DriverDashboard({user, resetRides, setResetRides, resetDrivers, setRese
     useEffect(fetchShuttles, [])
 
     const fetchRides = async () => {
-        console.log('fetching rides for driver...');
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND}/ride/${driverActive.id}`)
-        console.log('fetch driver rides res', response)
-        setRides(response.data.rides)
-        // setResetRides(!resetRides)
+        if (driverActive.id) {
+            console.log('fetching rides for driver...');
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND}/ride/${driverActive.id}`)
+            console.log('fetch driver rides res', response)
+            setRides(response.data.rides)
+            // setResetRides(!resetRides)
+        }
     }
     useEffect(fetchRides, [])
     useEffect(fetchRides, [resetRides])
 
+    socket.on('ride_updated', (data) => {
+        console.log('ride updated event in driver dash', data);
+        setResetRides(!resetRides)
+    })
+    socket.on('shift_started', (data) => {
+        setDriverActive({
+            ...data.shift,
+            user: data.user,
+            shuttle: data.shuttle
+        })
+        setResetDrivers(!resetDrivers)
+    })
+    socket.on('shift_ended', ({shift}) => {
+        console.log('shift ended res', shift);
+        setInputs({foo: null})
+        setDriverActive({foo: null})
+        setResetDrivers(!resetDrivers)
+    })
+
     useEffect(() => {
         socket.on('connect', () => {
             console.log('socketId', socket.id, socket.connected);
-        })
-        
-        socket.on('ride_updated', (data) => {
-            console.log('ride updated event in driver dash', data);
-            setResetRides(!resetRides)
         })
 
         return () => {
             socket.off('connection')
         }
     }, [socket])
+
 
     return (
         <div className='view driverDashboard'>

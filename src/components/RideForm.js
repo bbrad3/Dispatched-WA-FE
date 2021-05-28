@@ -21,7 +21,13 @@ function RideForm({
         e.preventDefault()
         const response = await axios.post(`${process.env.REACT_APP_BACKEND}/ride`, inputs)
         console.log('new ride response', response);
-        setInputs({}) // why won't it reset the form!
+        setInputs({
+            pickup: '',
+            dropoff: '',
+            passengers: '',
+            callerName: '',
+            room: ''
+        }) // why won't it reset the form!
         setResetRides(!resetRides)
     }
 
@@ -59,7 +65,7 @@ function RideForm({
                     <option value={4}>4</option>
                     <option value={5}>5</option>
                     <option value={7}>7</option>
-                    <option value={7}>7</option>
+                    <option value={8}>8</option>
                     <option value={9}>9</option>
                     <option value={10}>10</option>
                     <option value={'+'}>+</option>

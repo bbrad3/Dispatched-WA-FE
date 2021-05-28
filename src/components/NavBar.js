@@ -1,18 +1,20 @@
 import { Link } from 'react-router-dom'
 
 import './styles/NavBar.css'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { GlobalContext } from '../contexts/GlobalContext'
 
 function NavBar() {
-    const { userState } = useContext(GlobalContext)
+    const { userState, driverState } = useContext(GlobalContext)
     const [user, setUser] = userState
+    const [driverActive, setDriverActive] = driverState
     const [redirect, setRedirect] = useState(false)
 
     const handleLogout = () => {
         localStorage.removeItem('userId')
-        setUser({})
+        setUser({foo: null})
+        setDriverActive({foo: null})
         setRedirect(true)
     }
 

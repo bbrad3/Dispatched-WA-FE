@@ -69,10 +69,9 @@ function EmployeeProfile() {
             role += 'Dispatcher, '
         }
         if (profile.admin) {
-            role += 'Admin'
+            role += 'Admin,'
         }
-        console.log(role);
-        return role
+        return role.slice(0, role.length - 2 )
     }
 
     useEffect(fetchProfile, [])

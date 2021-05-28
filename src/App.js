@@ -13,7 +13,7 @@ function App() {
   const [user, setUser] = userState
 
   useEffect(fetchUser, [])
-  useEffect(fetchShift, [user, driverActive])
+  // useEffect(fetchShift, [user, driverActive])
 
   return (
     <div className="App">
