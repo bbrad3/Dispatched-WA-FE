@@ -4,10 +4,8 @@
 ## Technologies
 > Front-end
 - React
-- React Native
 - Node.js
-- Material-UI
-- D3
+- Socket.io-client
 > Back-end
 - Express
 - PostgresQL
@@ -67,23 +65,27 @@ See User Stories section above
             - [x] Ride Details
         - [x] Active Drivers Dashboard
             - [x] Driver Card
-        - [] Ride Summary Aside
+        - [x] Ride Summary Aside
             - [x] Pending Rides List
-            - [] Completed Rides List
+            - [x] Completed Rides List
 
-- [] Driver View
-    - [] Assigned Rides
-    - [] Accepted Rides
-    - [] Update Ride Status
-    - [] Completed Rides
-- [] Administrator Dashboard
+- [x] Driver View
+    - [x] Assigned Rides
+    - [x] Update Ride Status
+    - [x] Completed Rides
 
 - [] Driver-Dispatcher Connection
-    - [] Logged in driver is displayed on Dispatch Dashboard
-    - [] Rides are sent to driver and displayed
-    - [] Ride status can be changed by driver and displayed in the Dispatch Dashboard
+    - [x] Logged in driver is displayed on Dispatch Dashboard
+    - [x] Rides are sent to driver and displayed
+    - [x] Ride status can be changed by driver and displayed in the Dispatch Dashboard
 
 ## Stretch Goals
+- [] Administrator Dashboard
+    - [] View Fleet
+        - [] CRUD fleet
+    - [] View Employees
+        - [] CRUD employees
+    - [] View Ride Stats
 - [] Mobile Application
     - [] Driver login
     - [] Working View
@@ -190,3 +192,9 @@ See User Stories section above
 | --- | --- | --- | --- |
 | GET | /shift | Get active employees | Dispatcher |
 | --- | --- | --- | --- |
+
+## Known Bugs
+
+1. Socket.io only allows for one driver at this time. Rooms must be implemented to fix this.
+
+2. The is currently no way to add employee roles as admins don't have a way to edit employees.
